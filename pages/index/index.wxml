@@ -16,4 +16,13 @@
           <view class="title">{{item.title}}</view>
           <image class="images" src="{{item.images}}" mode="aspectFill"></image>
       </navigator>
+
+      <block wx:if="{{listStoriesBefore.length > 0}}">
+      <view class="storiesbefore-head">昨天前</view>
+      <navigator wx:for="{{listStoriesBefore}}" wx:for-index="idx" wx:for-item="item" wx:key="*this" url="/pages/article/article?id={{item.id}}" hover-class="navigator-hover" class="item-wrap">
+          <view class="title">{{item.title}}</view>
+          <image class="images" src="{{item.images}}" mode="aspectFill"></image>
+      </navigator>
+      </block>
+
 </view>

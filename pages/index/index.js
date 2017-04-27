@@ -1,58 +1,66 @@
 //index.js
-// let util = require('/utils/util.js');
+let util = require('../../utils/util.js');
 
 Page({
   data:{
-    list: []
+    date: 0,
+    listStoriesBefore: []
   },
 
-  getList: function(page) {
+  getList: function() {
     let that = this;
-    wx.showLoading({
-      title: '加载中'
-    })
+    wx.showLoading({ title: '加载中' })
     wx.request({
       url: 'https://news-at.zhihu.com/api/4/news/latest',
       method: 'GET',
       success: function(res){
-        // console.log(res)
         that.setData({
           listStories: res.data.stories,
           listtTopStories: res.data.top_stories
         })
         wx.hideLoading()
+        wx.stopPullDownRefresh()
       },
       fail: function(res) {
         wx.hideLoading()
+        wx.stopPullDownRefresh()
+      }
+    })
+  },
+
+  getBeforeList: function() {
+    wx.showLoading({ title: '加载中' })
+    let that = this;
+    let d = this.data.date;
+    wx.request({
+      url: 'https://news-at.zhihu.com/api/4/news/before/'+ d,
+      method: 'GET',
+      success: function(res){
+        let arr = that.data.listStoriesBefore.concat(res.data.stories);
+        that.setData({
+          date: res.data.date,
+          listStoriesBefore: arr
+        })
+        wx.hideLoading()
       },
-      complete: function(res) {
+      fail: function(res) {
+        wx.hideLoading()
       }
     })
   },
 
   onPullDownRefresh: function() {
-
+    this.getList();
   },
 
   onReachBottom: function() {
-    // this.getList();
-    console.log('onReachBottom')
-
+    this.getBeforeList();
   },
 
   onLoad:function(options){
+    this.setData({
+      date: util.getNowFormatDate()
+    })
     this.getList();
-  },
-  onReady:function(){
-    // 页面渲染完成
-  },
-  onShow:function(){
-    // 页面显示
-  },
-  onHide:function(){
-    // 页面隐藏
-  },
-  onUnload:function(){
-    // 页面关闭
   }
 })
