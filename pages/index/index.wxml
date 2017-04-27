@@ -1,0 +1,19 @@
+<!--index.wxml-->
+<view class="container">
+    <swiper indicator-dots="true"
+    autoplay="true" class="swiper">
+    <block wx:for="{{listtTopStories}}" wx:for-item="item" wx:key="*this">
+        <swiper-item>
+            <navigator url="/pages/article/article?id={{item.id}}" open-type="navigate">
+                <view class="topstories-title">{{item.title}}</view>
+                <image src="{{item.image}}" class="slide-image" mode="aspectFill"/>
+            </navigator>
+        </swiper-item>
+    </block>
+    </swiper>
+
+      <navigator wx:for="{{listStories}}" wx:for-index="idx" wx:for-item="item" wx:key="*this" url="/pages/article/article?id={{item.id}}" hover-class="navigator-hover" class="item-wrap">
+          <view class="title">{{item.title}}</view>
+          <image class="images" src="{{item.images}}" mode="aspectFill"></image>
+      </navigator>
+</view>

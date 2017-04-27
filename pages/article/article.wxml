@@ -1,0 +1,13 @@
+<!--pages/article/article.wxml-->
+<import src="/wxParse/wxParse.wxml"/>
+
+<view class="container">
+    <view class="head">
+        <view class="title">{{title}}</view>
+        <view class="image-source">图片：{{image_source}}</view>
+        <image class="image" src="{{image}}" mode="aspectFill"></image>
+    </view>
+    <view class="article">
+        <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    </view>
+</view>

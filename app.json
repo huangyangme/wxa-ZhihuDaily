@@ -1,0 +1,14 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/article/article"
+  ],
+  "window":{
+    "backgroundColor": "#fff",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#3f8dd0",
+    "navigationBarTextStyle":"white",
+    "navigationBarTitleText": "知乎日报"
+  }
+}
